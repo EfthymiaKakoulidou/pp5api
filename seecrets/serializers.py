@@ -9,7 +9,7 @@ class SeecretSerializer(serializers.ModelSerializer):
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
 
     def validate_image(self, value):
-        if value.size > 1024 * 1024 * 2
+        if value.size > 1024 * 1024 * 2:
             raise serializers.ValidationError(
             "Image size larger than 2MB!"
             )
@@ -27,7 +27,7 @@ class SeecretSerializer(serializers.ModelSerializer):
         request = self.context['request']
         return request.user == obj.owner
     class Meta:
-        model = Post
+        model = Seecret
         fields = [
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_image', 'created_at', 'updated_at',
