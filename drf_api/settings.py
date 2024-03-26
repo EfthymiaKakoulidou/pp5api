@@ -54,7 +54,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
 
-ALLOWED_HOSTS = ['localhost', 'seecrets.herokuapp.com'] 
+ALLOWED_HOSTS = ['8000-efthymiakakoulid-pp5api-fefahzfxf5w.ws-eu110.gitpod.io', 'seecrets.herokuapp.com'] 
 
 
 # Application definition
