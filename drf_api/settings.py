@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'profiles',
-    'seecrets'
+    'seecrets',
+    'comments',
 ]
 
 MIDDLEWARE = [
