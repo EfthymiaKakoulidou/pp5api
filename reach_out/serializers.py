@@ -28,4 +28,4 @@ class Reach_outDetailSerializer(Reach_outSerializer):
     Serializer for the Reach_out model used in Detail view
     Reach_out is a read only field so that we dont have to set it on each update
     """
-    post = serializers.ReadOnlyField(source='reach_out.id')
+    reach_out_id = serializers.ReadOnlyField(source='reach_out.id')
