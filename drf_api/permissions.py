@@ -1,4 +1,5 @@
 from rest_framework import permissions
+from profiles.models import Profile
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
@@ -6,3 +7,10 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
         return obj.owner == request.user
+
+
+class IsProfileOwner(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return obj.reach_out_to == obj.owner

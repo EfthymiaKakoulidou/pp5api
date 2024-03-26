@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'seecrets',
     'comments',
     'hugs',
+    'reach_out',
 ]
 
 MIDDLEWARE = [

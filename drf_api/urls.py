@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include('seecrets.urls')),
     path('', include('comments.urls')),
     path('', include('hugs.urls')),
+    path('', include('reach_out.urls')),
 ]
