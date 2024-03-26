@@ -1,5 +1,6 @@
 from django.db.models import Count
 from django.http import Http404
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status, permissions, filters
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -19,7 +20,17 @@ class SeecretList(APIView):
         comments_count=Count('comment', distinct=True)
     ).order_by('-created_at')
     filter_backends = [
-        filters.OrderingFilter
+        filters.OrderingFilter,
+        filters.SearchFilter,
+        DjangoFilterBackend,
+    ]
+    filterset_fields = [
+        'likes__owner__profile',
+        'owner__profile',
+    ]
+    search_fields = [
+        'owner__username',
+        'title',
     ]
     ordering_fields = [
         'hugs_count',
@@ -29,7 +40,6 @@ class SeecretList(APIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
-
 
 
     def get(self, request):
