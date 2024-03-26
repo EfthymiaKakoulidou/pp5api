@@ -24,4 +24,5 @@ urlpatterns = [
     path('', include('comments.urls')),
     path('', include('hugs.urls')),
     path('', include('reach_out.urls')),
+    path('', include('blog.urls')),
 ]

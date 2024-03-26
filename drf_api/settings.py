@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'comments',
     'hugs',
     'reach_out',
+    'blog',
 ]
 
 MIDDLEWARE = [

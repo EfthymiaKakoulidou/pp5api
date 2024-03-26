@@ -15,3 +15,13 @@ class IsReachOutToProfile(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
         return request.user == obj.reach_out_to.user
+
+
+class IsSuperuserOrReadOnly(permissions.BasePermission):
+    """
+    Custom permission to only allow superusers to create blogs.
+    """
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return request.user and request.user.is_superuser
