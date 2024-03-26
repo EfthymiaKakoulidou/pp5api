@@ -1,5 +1,6 @@
+from django.db.models import Count
 from django.http import Http404
-from rest_framework import status, permissions
+from rest_framework import status, permissions, filters
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Seecret
@@ -12,6 +13,24 @@ class SeecretList(APIView):
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly
     ]
+
+    queryset = Seecret.objects.annotate(
+        hugs_count=Count('hugs', distinct=True),
+        comments_count=Count('comment', distinct=True)
+    ).order_by('-created_at')
+    filter_backends = [
+        filters.OrderingFilter
+    ]
+    ordering_fields = [
+        'hugs_count',
+        'comments_count',
+        'hugs__created_at',
+    ]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
 
     def get(self, request):
         seecrets = Seecret.objects.all()
