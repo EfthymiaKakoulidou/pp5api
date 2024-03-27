@@ -14,7 +14,7 @@ class IsReachOutToProfile(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
-        return request.user == obj.reach_out_to.user
+        return request.user == obj.reach_out_to.owner
 
 
 class IsSuperuserOrReadOnly(permissions.BasePermission):
