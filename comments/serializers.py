@@ -37,4 +37,4 @@ class CommentDetailSerializer(CommentSerializer):
     Serializer for the Comment model used in Detail view
     Seecret is a read only field so that we dont have to set it on each update
     """
-    seecret = serializers.ReadOnlyField(source='seecret.id')
+    seecretid = serializers.ReadOnlyField(source='seecret.id')
