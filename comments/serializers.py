@@ -29,7 +29,7 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
-            'seecret', 'created_at', 'updated_at', 'content'
+            'post', 'created_at', 'updated_at', 'content'
         ]
 
 class CommentDetailSerializer(CommentSerializer):
@@ -37,4 +37,4 @@ class CommentDetailSerializer(CommentSerializer):
     Serializer for the Comment model used in Detail view
     Seecret is a read only field so that we dont have to set it on each update
     """
-    seecret = serializers.ReadOnlyField(source='seecret.id')
+    post = serializers.ReadOnlyField(source='seecret.id')
