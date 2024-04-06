@@ -25,7 +25,7 @@ class SeecretList(APIView):
         DjangoFilterBackend,
     ]
     filterset_fields = [
-        'likes__owner__profile',
+        'hugs__owner__profile',
         'owner__profile',
     ]
     search_fields = [
