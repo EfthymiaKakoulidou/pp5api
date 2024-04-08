@@ -8,8 +8,8 @@ from .serializers import SeecretSerializer
 
 class SeecretList(generics.ListCreateAPIView):
     """
-    List posts or create a post if logged in
-    The perform_create method associates the post with the logged in user.
+    List secrets or create a post if logged in
+    The perform_create method associates the secret with the logged in user.
     """
     serializer_class = SeecretSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
