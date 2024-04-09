@@ -24,4 +24,7 @@ class DiaryDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     serializer_class = DiarySerializer
     permission_classes = [IsOwner]
+
+    def get_queryset(self):
+        return Diary.objects.filter(owner=self.request.user)
     
