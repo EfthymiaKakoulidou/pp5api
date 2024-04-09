@@ -28,6 +28,7 @@ urlpatterns = [
     ),
     path('', include('profiles.urls')),
     path('', include('seecrets.urls')),
+    path('', include('diary.urls')),
     path('', include('comments.urls')),
     path('', include('hugs.urls')),
     path('', include('reach_out.urls')),

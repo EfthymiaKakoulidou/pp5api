@@ -90,6 +90,7 @@ INSTALLED_APPS = [
 
     'profiles',
     'seecrets',
+    'diary',
     'comments',
     'hugs',
     'reach_out',

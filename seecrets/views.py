@@ -12,7 +12,7 @@ class SeecretList(generics.ListCreateAPIView):
     The perform_create method associates the secret with the logged in user.
     """
     serializer_class = SeecretSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
     queryset = Seecret.objects.annotate(
         hugs_count=Count('hugs', distinct=True),
         comments_count=Count('comment', distinct=True)
@@ -53,17 +53,4 @@ class SeecretDetail(generics.RetrieveUpdateDestroyAPIView):
     ).order_by('-created_at')
 
 
-class DiaryList(generics.ListCreateAPIView):
-    """
-    List diary entries displayed just on the diary
-    The perform_create method associates the entry with the logged in user.
-    """
-    serializer_class = SeecretSerializer
-    permission_classes = [IsOwner]
-    queryset = Seecret.objects.all()
-
-    def get_queryset(self):
-        return Seecret.objects.filter(owner=self.request.user)
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+    
