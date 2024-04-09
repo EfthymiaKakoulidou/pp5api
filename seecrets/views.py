@@ -1,7 +1,7 @@
 from django.db.models import Count
 from rest_framework import generics, permissions, filters
 from django_filters.rest_framework import DjangoFilterBackend
-from drf_api.permissions import IsOwnerOrReadOnly
+from drf_api.permissions import IsOwnerOrReadOnly, IsOwner
 from .models import Seecret
 from .serializers import SeecretSerializer
 
@@ -51,3 +51,19 @@ class SeecretDetail(generics.RetrieveUpdateDestroyAPIView):
         hugs_count=Count('hugs', distinct=True),
         comments_count=Count('comment', distinct=True)
     ).order_by('-created_at')
+
+
+class DiaryList(generics.ListCreateAPIView):
+    """
+    List diary entries displayed just on the diary
+    The perform_create method associates the entry with the logged in user.
+    """
+    serializer_class = SeecretSerializer
+    permission_classes = [IsOwner]
+    queryset = Seecret.objects.all()
+
+    def get_queryset(self):
+        return Seecret.objects.filter(owner=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
