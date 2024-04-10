@@ -18,8 +18,7 @@ class DiarySerializer(serializers.ModelSerializer):
         model = Diary
         fields = [
             'id', 'owner', 'is_owner', 'profile_id',
-            'profile_image', 'created_at', 'updated_at',
-            'title', 'content',  
+            'profile_image', 'created_at', 'updated_at', 'content',  
         ]
     
     
