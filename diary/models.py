@@ -21,13 +21,6 @@ class Diary(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=255)
     content = models.TextField(blank=True)
-    image = models.ImageField(
-        upload_to='images/', default='../default_seecret_lmvjp0', blank=True
-    )
-    image_filter = models.CharField(
-        max_length=32, choices=image_filter_choices, default='normal'
-    )
-    
 
     class Meta:
         ordering = ['-created_at']
