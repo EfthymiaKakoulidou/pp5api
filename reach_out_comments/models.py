@@ -1,17 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
-from profiles.models import Profile
+from reach_out.models import Reach_out
 
 
-class Reach_out(models.Model):
+class Reach_out_comment(models.Model):
     """
-    Reach_out model, related to User and Profile
+    Comment model, related to User and Seecret
     """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    reach_out_to = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    reach_out = models.ForeignKey(Reach_out, on_delete=models.CASCADE, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    content = models.TextField()
+    reach_out_comment_content = models.TextField()
 
     class Meta:
         ordering = ['-created_at']

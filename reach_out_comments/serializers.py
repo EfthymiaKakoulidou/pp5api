@@ -1,12 +1,12 @@
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
-from .models import Reach_out
+from .models import Reach_out_comment
 
 
-class Reach_outSerializer(serializers.ModelSerializer):
+class Reach_out_commentSerializer(serializers.ModelSerializer):
     """
-    Serializer for the Reach_out model
-    Adds three extra fields when returning a list of Reach_out instances
+    Serializer for the Comment model
+    Adds three extra fields when returning a list of Comment instances
     """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
@@ -14,7 +14,6 @@ class Reach_outSerializer(serializers.ModelSerializer):
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
-
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -27,15 +26,15 @@ class Reach_outSerializer(serializers.ModelSerializer):
         return naturaltime(obj.updated_at)
 
     class Meta:
-        model = Reach_out
+        model = Reach_out_comment
         fields = [
-            'id', 'owner', 'is_owner', 'profile_id', 'profile_image', 'created_at', 
-            'updated_at', 'content', 'reach_out_to'
+            'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
+            'reach_out', 'created_at', 'updated_at', 'reach_out_comment_content'
         ]
 
-class Reach_outDetailSerializer(Reach_outSerializer):
+class Reach_out_commentDetailSerializer(Reach_out_commentSerializer):
     """
     Serializer for the Comment model used in Detail view
-    Profile is a read only field so that we dont have to set it on each update
+    Seecret is a read only field so that we dont have to set it on each update
     """
-    reach_out_to = serializers.ReadOnlyField(source='profile.id')
+    reach_out = serializers.ReadOnlyField(source='reach_out.id')

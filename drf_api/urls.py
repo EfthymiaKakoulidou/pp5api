@@ -30,6 +30,7 @@ urlpatterns = [
     path('', include('seecrets.urls')),
     path('', include('diary.urls')),
     path('', include('comments.urls')),
+    path('', include('reach_out_comments.urls')),
     path('', include('hugs.urls')),
     path('', include('reach_out.urls')),
     path('', include('blog.urls')),
