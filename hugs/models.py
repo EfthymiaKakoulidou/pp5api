@@ -20,4 +20,4 @@ class Hug(models.Model):
         unique_together = ['owner', 'seecret']
 
     def __str__(self):
-        return f'{self.owner} {self.hug}'
+        return f'{self.owner} {self.seecret}'
