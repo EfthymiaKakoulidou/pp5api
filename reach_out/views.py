@@ -6,7 +6,7 @@ from drf_api.permissions import IsOwnerOrReadOnly
 
 class Reach_outList(generics.ListCreateAPIView):
     serializer_class = Reach_outSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def get_queryset(self):
         user = self.request.user
@@ -16,6 +16,6 @@ class Reach_outList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 class Reach_outDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
     serializer_class = Reach_outDetailSerializer
     queryset = Reach_out.objects.all()
