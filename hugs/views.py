@@ -1,6 +1,6 @@
 from rest_framework import generics, permissions
 from drf_api.permissions import IsOwnerOrReadOnly
-from .models import Hug
+from hugs.models import Hug
 from .serializers import HugSerializer
 
 
