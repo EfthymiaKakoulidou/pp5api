@@ -10,14 +10,14 @@ class Hug(models.Model):
     'unique_together' makes sure a user can't hug the same seecret twice.
     """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    hug = models.ForeignKey(
+    seecret = models.ForeignKey(
         Seecret, related_name='hugs', on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['-created_at']
-        unique_together = ['owner', 'hug']
+        unique_together = ['owner', 'seecret']
 
     def __str__(self):
         return f'{self.owner} {self.hug}'

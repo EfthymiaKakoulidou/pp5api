@@ -12,7 +12,7 @@ class HugSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Hug
-        fields = ['id', 'created_at', 'owner', 'hug']
+        fields = ['id', 'created_at', 'owner', 'seecret']
 
     def create(self, validated_data):
         try:
