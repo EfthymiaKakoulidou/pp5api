@@ -1,5 +1,6 @@
 from rest_framework import generics, permissions
 from drf_api.permissions import IsOwnerOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 from hugs.models import Hug
 from .serializers import HugSerializer
 
@@ -17,6 +18,6 @@ class HugDetail(generics.RetrieveDestroyAPIView):
     """
     Retrieve a hug or delete it by id if you own it.
     """
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
     serializer_class = HugSerializer
     queryset = Hug.objects.all()

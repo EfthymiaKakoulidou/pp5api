@@ -3,6 +3,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Reach_out_comment
 from .serializers import Reach_out_commentSerializer, Reach_out_commentDetailSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 class Reach_out_commentList(generics.ListCreateAPIView):
@@ -23,6 +24,6 @@ class Reach_out_commentDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Retrieve a comment, or update or delete it by id if you own it.
     """
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
     serializer_class = Reach_out_commentDetailSerializer
     queryset = Reach_out_comment.objects.all()

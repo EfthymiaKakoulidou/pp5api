@@ -2,6 +2,7 @@ from django.db.models import Count
 from rest_framework import generics, permissions, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_api.permissions import IsOwnerOrReadOnly, IsOwner
+from rest_framework.permissions import IsAuthenticated
 from .models import Seecret
 from .serializers import SeecretSerializer
 
@@ -12,7 +13,7 @@ class SeecretList(generics.ListCreateAPIView):
     The perform_create method associates the secret with the logged in user.
     """
     serializer_class = SeecretSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
     queryset = Seecret.objects.annotate(
         hugs_count=Count('hugs', distinct=True),
         comments_count=Count('comment', distinct=True)
@@ -46,7 +47,7 @@ class SeecretDetail(generics.RetrieveUpdateDestroyAPIView):
     Retrieve a seecret and edit or delete it if you own it.
     """
     serializer_class = SeecretSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
     queryset = Seecret.objects.annotate(
         hugs_count=Count('hugs', distinct=True),
         comments_count=Count('comment', distinct=True)

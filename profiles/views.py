@@ -5,9 +5,11 @@ from rest_framework.response import Response
 from .models import Profile
 from .serializers import ProfileSerializer
 from drf_api.permissions import IsOwnerOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 
 
 class ProfileList(APIView):
+    permission_classes = [IsAuthenticated]
     """
     List all profiles
     No Create view (post method), as profile creation handled by django signals
@@ -21,7 +23,7 @@ class ProfileList(APIView):
 
 class ProfileDetail(APIView):
     serializer_class = ProfileSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
     def get_object(self,pk):
         try:
             profile = Profile.objects.get(pk=pk)
