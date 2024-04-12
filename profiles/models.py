@@ -12,6 +12,7 @@ class Profile(models.Model):
     image = models.ImageField(
         upload_to='images/', default='../default_profile_ht1pfm'
     )
+    
 
     class Meta:
         ordering = ['-created_at']
