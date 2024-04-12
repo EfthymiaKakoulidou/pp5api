@@ -5,7 +5,14 @@ from rest_framework.views import APIView
 from .models import Blog
 from .serializers import BlogSerializer
 from drf_api.permissions import IsSuperuserOrReadOnly
+from django.contrib.auth.mixins import UserPassesTestMixin
 
+class SuperuserRequiredMixin(UserPassesTestMixin):
+    """
+    Mixin that requires the user to be a superuser.
+    """
+    def test_func(self):
+        return self.request.user.is_superuser
 
 class BlogList(APIView):
     serializer_class = BlogSerializer
@@ -33,8 +40,7 @@ class BlogList(APIView):
             serializer.errors, status=status.HTTP_400_BAD_REQUEST
         )
 
-
-class BlogDetail(APIView):
+class BlogDetail(SuperuserRequiredMixin, APIView):
     permission_classes = [IsSuperuserOrReadOnly]
     serializer_class = BlogSerializer
 
