@@ -16,7 +16,7 @@ class ProfileList(generics.ListAPIView):
     No create view as profile creation is handled by django signals.
     """
     queryset = Profile.objects.all()
-    
+    permission_classes = [IsAuthenticated]
     serializer_class = ProfileSerializer
     filter_backends = [
         filters.OrderingFilter,
@@ -27,6 +27,6 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
     """
     Retrieve or update a profile if you're the owner.
     """
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
