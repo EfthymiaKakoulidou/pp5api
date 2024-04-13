@@ -17,4 +17,4 @@ class Reach_out_comment(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return self.content
+        return self.reach_out_comment_content
