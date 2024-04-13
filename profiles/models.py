@@ -13,7 +13,6 @@ class Profile(models.Model):
         upload_to='images/', default='../default_profile_ht1pfm'
     )
     
-
     class Meta:
         ordering = ['-created_at']
 
