@@ -1,82 +1,32 @@
-from django.http import Http404
-from rest_framework import status, permissions
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from django.db.models import Count
+from rest_framework import generics, permissions, filters
+from django_filters.rest_framework import DjangoFilterBackend
+from drf_api.permissions import IsOwnerOrReadOnly, IsOwner, IsSuperuserOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 from .models import Blog
 from .serializers import BlogSerializer
-from drf_api.permissions import IsSuperuserOrReadOnly
-from django.contrib.auth.mixins import UserPassesTestMixin
-from rest_framework.permissions import IsAuthenticated
-from seecrets.models import Seecret
 
-class SuperuserRequiredMixin(UserPassesTestMixin):
-    """
-    Mixin that requires the user to be a superuser.
-    """
-    def test_func(self):
-        return self.request.user.is_superuser
 
-class BlogList(APIView):
+class BlogList(generics.ListCreateAPIView):
+    """
+    List blogposts or create a blog if superuser
+    The perform_create method associates the secret with the logged in user.
+    """
     serializer_class = BlogSerializer
-    permission_classes = [
-        IsSuperuserOrReadOnly
-    ]
-
-    def get(self, request):
-        blogs = Blog.objects.all()
-        serializer = BlogSerializer(
-            blogs, many=True, context={'request': request}
-        )
-        return Response(serializer.data)
-
-    def post(self, request):
-        serializer = BlogSerializer(
-            data=request.data, context={'request': request}
-        )
-        if serializer.is_valid():
-            serializer.save(owner=request.user)
-            return Response(
-                serializer.data, status=status.HTTP_201_CREATED
-            )
-        return Response(
-            serializer.errors, status=status.HTTP_400_BAD_REQUEST
-        )
-
-class BlogDetail(SuperuserRequiredMixin, APIView):
     permission_classes = [IsAuthenticated, IsSuperuserOrReadOnly]
+    queryset = Blog.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
+class BlogDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Retrieve a blogpost and edit or delete it if you are superuser.
+    """
     serializer_class = BlogSerializer
+    permission_classes = [IsAuthenticated, IsSuperuserOrReadOnly]
+    queryset = Blog.objects.all()
 
-    def get_object(self, pk):
-        try:
-            blog = Blog.objects.get(pk=pk)
-            self.check_object_permissions(self.request, blog)
-            return blog
-        except Blog.DoesNotExist:
-            raise Http404
 
-    def get(self, request, pk):
-        blog = Blog.objects.get(pk=pk)
-        seecret = self.get_object(pk)
-        serializer = BlogSerializer(
-            blog, context={'request': request}
-        )
-        return Response(serializer.data)
-
-    def put(self, request, pk):
-        blog = self.get_object(pk)
-        serializer = BlogSerializer(
-            blog, data=request.data, context={'request': request}
-        )
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(
-            serializer.errors, status=status.HTTP_400_BAD_REQUEST
-        )
-
-    def delete(self, request, pk):
-        blog = self.get_object(pk)
-        blog.delete()
-        return Response(
-            status=status.HTTP_204_NO_CONTENT
-        )
+    
