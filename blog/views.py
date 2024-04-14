@@ -6,6 +6,8 @@ from .models import Blog
 from .serializers import BlogSerializer
 from drf_api.permissions import IsSuperuserOrReadOnly
 from django.contrib.auth.mixins import UserPassesTestMixin
+from rest_framework.permissions import IsAuthenticated
+from seecrets.models import Seecret
 
 class SuperuserRequiredMixin(UserPassesTestMixin):
     """
@@ -41,18 +43,19 @@ class BlogList(APIView):
         )
 
 class BlogDetail(SuperuserRequiredMixin, APIView):
-    permission_classes = [IsSuperuserOrReadOnly]
+    permission_classes = [IsAuthenticated, IsSuperuserOrReadOnly]
     serializer_class = BlogSerializer
 
     def get_object(self, pk):
         try:
             blog = Blog.objects.get(pk=pk)
-            self.check_object_permissions(self.request, seecret)
+            self.check_object_permissions(self.request, blog)
             return blog
         except Blog.DoesNotExist:
             raise Http404
 
     def get(self, request, pk):
+        blog = Blog.objects.get(pk=pk)
         seecret = self.get_object(pk)
         serializer = BlogSerializer(
             blog, context={'request': request}
