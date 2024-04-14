@@ -18,4 +18,6 @@ class Reach_outList(generics.ListCreateAPIView):
 class Reach_outDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated, IsOwner, IsReachOutToProfile]
     serializer_class = Reach_outDetailSerializer
-    queryset = Reach_out.objects.all()
+    def get_queryset(self):
+        user = self.request.user
+        return Reach_out.objects.filter(owner=user) | Reach_out.objects.filter(reach_out_to=user.profile)
