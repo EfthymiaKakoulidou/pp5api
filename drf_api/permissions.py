@@ -9,13 +9,14 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
 
 class IsReachOutToProfile(permissions.BasePermission):
-    """ This class is used for the reach outs"""
+    """Permission class for reach outs"""
 
     def has_object_permission(self, request, view, obj):
+        
         if request.method in permissions.SAFE_METHODS:
             return True
-        return request.user.profile_id == obj.reach_out_to
-
+        
+        return request.user.profile == obj.reach_out_to
 
 class IsSuperuserOrReadOnly(permissions.BasePermission):
     """
