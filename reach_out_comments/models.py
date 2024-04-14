@@ -14,7 +14,7 @@ class Reach_out_comment(models.Model):
     reach_out_comment_content = models.TextField()
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ['created_at']
 
     def __str__(self):
         return self.reach_out_comment_content
