@@ -32,10 +32,3 @@ class Reach_outSerializer(serializers.ModelSerializer):
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image', 'created_at', 
             'updated_at', 'content', 'reach_out_to'
         ]
-
-class Reach_outDetailSerializer(Reach_outSerializer):
-    """
-    Serializer for the Comment model used in Detail view
-    Profile is a read only field so that we dont have to set it on each update
-    """
-    reach_out_to = serializers.ReadOnlyField(source='profile.id')
