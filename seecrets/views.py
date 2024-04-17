@@ -24,7 +24,7 @@ class SeecretList(generics.ListCreateAPIView):
         DjangoFilterBackend,
     ]
     filterset_fields = [
-        
+
         'hugs__owner__profile',
         'owner__profile',
     ]
@@ -52,6 +52,3 @@ class SeecretDetail(generics.RetrieveUpdateDestroyAPIView):
         hugs_count=Count('hugs', distinct=True),
         comments_count=Count('comment', distinct=True)
     ).order_by('-created_at')
-
-
-    

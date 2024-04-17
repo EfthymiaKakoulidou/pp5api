@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Diary
 from .serializers import DiarySerializer
 
+
 class DiaryList(generics.ListCreateAPIView):
     """
     List diary entries displayed just on the diary
@@ -19,6 +20,7 @@ class DiaryList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+
 class DiaryDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Retrieve a diary entry and edit or delete it if you own it.
@@ -28,4 +30,3 @@ class DiaryDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Diary.objects.filter(owner=self.request.user)
-    

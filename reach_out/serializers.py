@@ -15,7 +15,6 @@ class Reach_outSerializer(serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
 
-
     def get_is_owner(self, obj):
         request = self.context['request']
         return request.user == obj.owner
@@ -29,6 +28,7 @@ class Reach_outSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reach_out
         fields = [
-            'id', 'owner', 'is_owner', 'profile_id', 'profile_image', 'created_at', 
+            'id', 'owner', 'is_owner', 'profile_id',
+            'profile_image', 'created_at',
             'updated_at', 'content', 'reach_out_to'
         ]

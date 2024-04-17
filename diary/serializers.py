@@ -2,7 +2,6 @@ from rest_framework import serializers
 from .models import Diary
 
 
-
 class DiarySerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
@@ -13,12 +12,9 @@ class DiarySerializer(serializers.ModelSerializer):
         request = self.context['request']
         return request.user == obj.owner
 
-
     class Meta:
         model = Diary
         fields = [
             'id', 'owner', 'is_owner', 'profile_id',
-            'profile_image', 'created_at', 'updated_at', 'content',  
+            'profile_image', 'created_at', 'updated_at', 'content',
         ]
-    
-    

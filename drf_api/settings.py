@@ -63,7 +63,10 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
 
-ALLOWED_HOSTS = ['8000-efthymiakakoulid-pp5api-fefahzfxf5w.ws-eu110.gitpod.io', os.environ.get('ALLOWED_HOST')] 
+ALLOWED_HOSTS = [
+    '8000-efthymiakakoulid-pp5api-fefahzfxf5w.ws-eu110.gitpod.io',
+    os.environ.get('ALLOWED_HOST')
+]
 
 
 # Application definition
@@ -165,7 +168,7 @@ else:
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
     }
-    
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

@@ -15,7 +15,7 @@ class SeecretSerializer(serializers.ModelSerializer):
     def validate_image(self, value):
         if value.size > 1024 * 1024 * 2:
             raise serializers.ValidationError(
-            "Image size larger than 2MB!"
+                "Image size larger than 2MB!"
             )
         if value.image.width > 4096:
             raise serializers.ValidationError(
@@ -32,13 +32,13 @@ class SeecretSerializer(serializers.ModelSerializer):
         return request.user == obj.owner
 
     def get_hug_id(self, obj):
-            user = self.context['request'].user
-            if user.is_authenticated:
-                hug = Hug.objects.filter(
-                    owner=user, hug=obj
-                ).first()
-                return hug.id if hug else None
-            return None
+        user = self.context['request'].user
+        if user.is_authenticated:
+            hug = Hug.objects.filter(
+                owner=user, hug=obj
+            ).first()
+            return hug.id if hug else None
+        return None
 
     class Meta:
         model = Seecret
@@ -48,5 +48,3 @@ class SeecretSerializer(serializers.ModelSerializer):
             'title', 'content', 'image', 'image_filter', 'category', 'hug_id',
             'hugs_count', 'comments_count',
         ]
-    
-    

@@ -29,8 +29,10 @@ class Reach_out_commentSerializer(serializers.ModelSerializer):
         model = Reach_out_comment
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
-            'reach_out', 'created_at', 'updated_at', 'reach_out_comment_content'
+            'reach_out', 'created_at', 'updated_at',
+            'reach_out_comment_content'
         ]
+
 
 class Reach_out_commentDetailSerializer(Reach_out_commentSerializer):
     """

@@ -11,7 +11,7 @@ class BlogSerializer(serializers.ModelSerializer):
     def validate_image(self, value):
         if value.size > 1024 * 1024 * 2:
             raise serializers.ValidationError(
-            "Image size larger than 2MB!"
+                "Image size larger than 2MB!"
             )
         if value.image.width > 4096:
             raise serializers.ValidationError(
@@ -26,6 +26,7 @@ class BlogSerializer(serializers.ModelSerializer):
     def get_is_owner(self, obj):
         request = self.context['request']
         return request.user == obj.owner
+
     class Meta:
         model = Blog
         fields = [
