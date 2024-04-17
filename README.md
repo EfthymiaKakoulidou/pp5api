@@ -7,7 +7,14 @@
 ## Description
 
 - PP5Api is the backend part of my final project at Code Institute for a Diploma in Full Stack Software Development. The project is a social media platform that has as a purpose to enable people to share their secrets with others, get support, contact eash other privately and write in their personal diaries. This api hosts the logic behind all this functionality.
-- You can find the live deployed url here : 
+
+- You can find the live deployed url here : https://seecrets-d488911dd03c.herokuapp.com/
+
+- Deployed Frontend : https://secrets-276f7be740ae.herokuapp.com/
+
+- Backend repository : https://github.com/EfthymiaKakoulidou/pp5api
+
+- Frontend repository : https://github.com/EfthymiaKakoulidou/secrets
 
 ## Database Diagram
 
@@ -61,202 +68,18 @@ ElephantSQL
 
 ## Deployment
 
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-START OF NOTES (to be deleted)
-
-**IMPORTANT:**
-
-- ⚠️ DO NOT update the environment variables to your own! These should NOT be included in this file; just demo values! ⚠️
-- ⚠️ DO NOT update the environment variables to your own! These should NOT be included in this file; just demo values! ⚠️
-- ⚠️ DO NOT update the environment variables to your own! These should NOT be included in this file; just demo values! ⚠️
-
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-END OF NOTES (to be deleted)
-
-The live deployed application can be found deployed on [Heroku](https://seecrets-d488911dd03c.herokuapp.com).
-
 ### PostgreSQL Database
 
-This project uses a [Code Institute PostgreSQL Database](https://dbs.ci-dbs.net).
+- This project uses a PostgreSQL database.
+	- Log in to ElephantSQL.com to access your dashboard.
+	- Click “Create New Instance”.
+	- Set up your plan. Give your plan a Name (this is commonly the name of the project)
+	- Select the Tiny Turtle (Free) plan
+	- You can leave the Tags field blank.
+	- Select “Select Region”.
+	- Select a data center near you.
+	- Check your details are correct and then click “Create instance”.
 
-To obtain my own Postgres Database from Code Institute, I followed these steps:
-
-- Signed-in to the CI LMS using my email address.
-- An email was sent to me with my new Postgres Database.
-
-> [!CAUTION]  
-> - PostgreSQL databases by Code Institute are only available to CI Students.
-> - You must acquire your own PostgreSQL database through some other method
-> if you plan to clone/fork this repository.
-> - Code Institute students are allowed a maximum of 8 databases.
-> - Databases are subject to deletion after 18 months.
-
-### Amazon AWS
-
-This project uses [AWS](https://aws.amazon.com) to store media and static files online, due to the fact that Heroku doesn't persist this type of data.
-
-Once you've created an AWS account and logged-in, follow these series of steps to get your project connected.
-Make sure you're on the **AWS Management Console** page.
-
-#### S3 Bucket
-
-- Search for **S3**.
-- Create a new bucket, give it a name (matching your Heroku app name), and choose the region closest to you.
-- Uncheck **Block all public access**, and acknowledge that the bucket will be public (required for it to work on Heroku).
-- From **Object Ownership**, make sure to have **ACLs enabled**, and **Bucket owner preferred** selected.
-- From the **Properties** tab, turn on static website hosting, and type `index.html` and `error.html` in their respective fields, then click **Save**.
-- From the **Permissions** tab, paste in the following CORS configuration:
-
-	```shell
-	[
-		{
-			"AllowedHeaders": [
-				"Authorization"
-			],
-			"AllowedMethods": [
-				"GET"
-			],
-			"AllowedOrigins": [
-				"*"
-			],
-			"ExposeHeaders": []
-		}
-	]
-	```
-
-- Copy your **ARN** string.
-- From the **Bucket Policy** tab, select the **Policy Generator** link, and use the following steps:
-	- Policy Type: **S3 Bucket Policy**
-	- Effect: **Allow**
-	- Principal: `*`
-	- Actions: **GetObject**
-	- Amazon Resource Name (ARN): **paste-your-ARN-here**
-	- Click **Add Statement**
-	- Click **Generate Policy**
-	- Copy the entire Policy, and paste it into the **Bucket Policy Editor**
-
-		```shell
-		{
-			"Id": "Policy1234567890",
-			"Version": "2012-10-17",
-			"Statement": [
-				{
-					"Sid": "Stmt1234567890",
-					"Action": [
-						"s3:GetObject"
-					],
-					"Effect": "Allow",
-					"Resource": "arn:aws:s3:::your-bucket-name/*"
-					"Principal": "*",
-				}
-			]
-		}
-		```
-
-	- Before you click "Save", add `/*` to the end of the Resource key in the Bucket Policy Editor (like above).
-	- Click **Save**.
-- From the **Access Control List (ACL)** section, click "Edit" and enable **List** for **Everyone (public access)**, and accept the warning box.
-	- If the edit button is disabled, you need to change the **Object Ownership** section above to **ACLs enabled** (mentioned above).
-
-#### IAM
-
-Back on the AWS Services Menu, search for and open **IAM** (Identity and Access Management).
-Once on the IAM page, follow these steps:
-
-- From **User Groups**, click **Create New Group**.
-	- Suggested Name: `group-pp5api` (group + the project name)
-- Tags are optional, but you must click it to get to the **review policy** page.
-- From **User Groups**, select your newly created group, and go to the **Permissions** tab.
-- Open the **Add Permissions** dropdown, and click **Attach Policies**.
-- Select the policy, then click **Add Permissions** at the bottom when finished.
-- From the **JSON** tab, select the **Import Managed Policy** link.
-	- Search for **S3**, select the `AmazonS3FullAccess` policy, and then **Import**.
-	- You'll need your ARN from the S3 Bucket copied again, which is pasted into "Resources" key on the Policy.
-
-		```shell
-		{
-			"Version": "2012-10-17",
-			"Statement": [
-				{
-					"Effect": "Allow",
-					"Action": "s3:*",
-					"Resource": [
-						"arn:aws:s3:::your-bucket-name",
-						"arn:aws:s3:::your-bucket-name/*"
-					]
-				}
-			]
-		}
-		```
-	
-	- Click **Review Policy**.
-	- Suggested Name: `policy-pp5api` (policy + the project name)
-	- Provide a description:
-		- "Access to S3 Bucket for pp5api static files."
-	- Click **Create Policy**.
-- From **User Groups**, click your "group-pp5api".
-- Click **Attach Policy**.
-- Search for the policy you've just created ("policy-pp5api") and select it, then **Attach Policy**.
-- From **User Groups**, click **Add User**.
-	- Suggested Name: `user-pp5api` (user + the project name)
-- For "Select AWS Access Type", select **Programmatic Access**.
-- Select the group to add your new user to: `group-pp5api`
-- Tags are optional, but you must click it to get to the **review user** page.
-- Click **Create User** once done.
-- You should see a button to **Download .csv**, so click it to save a copy on your system.
-	- **IMPORTANT**: once you pass this page, you cannot come back to download it again, so do it immediately!
-	- This contains the user's **Access key ID** and **Secret access key**.
-	- `AWS_ACCESS_KEY_ID` = **Access key ID**
-	- `AWS_SECRET_ACCESS_KEY` = **Secret access key**
-
-#### Final AWS Setup
-
-- If Heroku Config Vars has `DISABLE_COLLECTSTATIC` still, this can be removed now, so that AWS will handle the static files.
-- Back within **S3**, create a new folder called: `media`.
-- Select any existing media images for your project to prepare them for being uploaded into the new folder.
-- Under **Manage Public Permissions**, select **Grant public read access to this object(s)**.
-- No further settings are required, so click **Upload**.
-
-### Stripe API
-
-This project uses [Stripe](https://stripe.com) to handle the ecommerce payments.
-
-Once you've created a Stripe account and logged-in, follow these series of steps to get your project connected.
-
-- From your Stripe dashboard, click to expand the "Get your test API keys".
-- You'll have two keys here:
-	- `STRIPE_PUBLIC_KEY` = Publishable Key (starts with **pk**)
-	- `STRIPE_SECRET_KEY` = Secret Key (starts with **sk**)
-
-As a backup, in case users prematurely close the purchase-order page during payment, we can include Stripe Webhooks.
-
-- From your Stripe dashboard, click **Developers**, and select **Webhooks**.
-- From there, click **Add Endpoint**.
-	- `https://seecrets-d488911dd03c.herokuapp.com/checkout/wh/`
-- Click **receive all events**.
-- Click **Add Endpoint** to complete the process.
-- You'll have a new key here:
-	- `STRIPE_WH_SECRET` = Signing Secret (Wehbook) Key (starts with **wh**)
-
-### Gmail API
-
-This project uses [Gmail](https://mail.google.com) to handle sending emails to users for account verification and purchase order confirmations.
-
-Once you've created a Gmail (Google) account and logged-in, follow these series of steps to get your project connected.
-
-- Click on the **Account Settings** (cog icon) in the top-right corner of Gmail.
-- Click on the **Accounts and Import** tab.
-- Within the section called "Change account settings", click on the link for **Other Google Account settings**.
-- From this new page, select **Security** on the left.
-- Select **2-Step Verification** to turn it on. (verify your password and account)
-- Once verified, select **Turn On** for 2FA.
-- Navigate back to the **Security** page, and you'll see a new option called **App passwords**.
-- This might prompt you once again to confirm your password and account.
-- Select **Mail** for the app type.
-- Select **Other (Custom name)** for the device type.
-	- Any custom name, such as "Django" or pp5api
-- You'll be provided with a 16-character password (API key).
-	- Save this somewhere locally, as you cannot access this key again later!
-	- `EMAIL_HOST_PASS` = user's 16-character API key
-	- `EMAIL_HOST_USER` = user's own personal Gmail email address
 
 ### Heroku Deployment
 
@@ -273,17 +96,10 @@ Deployment steps are as follows, after account setup:
 
 | Key | Value |
 | --- | --- |
-| `AWS_ACCESS_KEY_ID` | user's own value |
-| `AWS_SECRET_ACCESS_KEY` | user's own value |
 | `DATABASE_URL` | user's own value |
 | `DISABLE_COLLECTSTATIC` | 1 (*this is temporary, and can be removed for the final deployment*) |
-| `EMAIL_HOST_PASS` | user's own value |
-| `EMAIL_HOST_USER` | user's own value |
 | `SECRET_KEY` | user's own value |
-| `STRIPE_PUBLIC_KEY` | user's own value |
-| `STRIPE_SECRET_KEY` | user's own value |
-| `STRIPE_WH_SECRET` | user's own value |
-| `USE_AWS` | True |
+
 
 Heroku needs three additional files in order to deploy properly.
 
@@ -341,17 +157,12 @@ and include the same environment variables listed above from the Heroku deployme
 Sample `env.py` file:
 
 ```python
-import os
 
-os.environ.setdefault("AWS_ACCESS_KEY_ID", "user's own value")
-os.environ.setdefault("AWS_SECRET_ACCESS_KEY", "user's own value")
-os.environ.setdefault("DATABASE_URL", "user's own value")
-os.environ.setdefault("EMAIL_HOST_PASS", "user's own value")
-os.environ.setdefault("EMAIL_HOST_USER", "user's own value")
-os.environ.setdefault("SECRET_KEY", "user's own value")
-os.environ.setdefault("STRIPE_PUBLIC_KEY", "user's own value")
-os.environ.setdefault("STRIPE_SECRET_KEY", "user's own value")
-os.environ.setdefault("STRIPE_WH_SECRET", "user's own value")
+import os
+os.environ['CLOUDINARY_URL'] = 'cloudinary:url'
+os.environ['DEV'] = '1'
+os.environ['DATABASE_URL'] = "postgres:url"
+os.environ.setdefault("SECRET_KEY", "a secret key") 
 
 # local environment only (do not include these in production/deployment!)
 os.environ.setdefault("DEBUG", "True")
@@ -403,93 +214,23 @@ You can fork this repository by using the following steps:
 
 ### Local VS Deployment
 
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-START OF NOTES (to be deleted)
-
-Use this space to discuss any differences between the local version you've developed, and the live deployment site on Heroku.
-
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-END OF NOTES (to be deleted)
+No significant differences between local and deployment
 
 ## Credits
 
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-START OF NOTES (to be deleted)
+I constructed this api with the guidance of code institute's walkthrough.
 
-In this section you need to reference where you got your content, media, and extra help from.
-It is common practice to use code from other repositories and tutorials,
-however, it is important to be very specific about these sources to avoid plagiarism.
-
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-END OF NOTES (to be deleted)
-
-### Content
-
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-START OF NOTES (to be deleted)
-
-Use this space to provide attribution links to any borrowed code snippets, elements, or resources.
-A few examples have been provided below to give you some ideas.
-
-Ideally, you should provide an actual link to every resource used, not just a generic link to the main site!
-
-⚠️⚠️ EXAMPLE LINKS - REPLACE WITH YOUR OWN ⚠️⚠️
-
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-END OF NOTES (to be deleted)
 
 | Source | Location | Notes |
 | --- | --- | --- |
 | [Markdown Builder](https://tim.2bn.dev/markdown-builder) | README and TESTING | tool to help generate the Markdown files |
-| [Chris Beams](https://chris.beams.io/posts/git-commit) | version control | "How to Write a Git Commit Message" |
-| [W3Schools](https://www.w3schools.com/howto/howto_js_topnav_responsive.asp) | entire site | responsive HTML/CSS/JS navbar |
-| [W3Schools](https://www.w3schools.com/howto/howto_css_modals.asp) | contact page | interactive pop-up (modal) |
-| [W3Schools](https://www.w3schools.com/css/css3_variables.asp) | entire site | how to use CSS :root variables |
-| [Flexbox Froggy](https://flexboxfroggy.com/) | entire site | modern responsive layouts |
-| [Grid Garden](https://cssgridgarden.com) | entire site | modern responsive layouts |
-| [StackOverflow](https://stackoverflow.com/a/2450976) | quiz page | Fisher-Yates/Knuth shuffle in JS |
-| [YouTube](https://www.youtube.com/watch?v=YL1F4dCUlLc) | leaderboard | using `localStorage()` in JS for high scores |
-| [YouTube](https://www.youtube.com/watch?v=u51Zjlnui4Y) | PP3 terminal | tutorial for adding color to the Python terminal |
-| [strftime](https://strftime.org) | CRUD functionality | helpful tool to format date/time from string |
-| [WhiteNoise](http://whitenoise.evans.io) | entire site | hosting static files on Heroku temporarily |
 
-### Media
-
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-START OF NOTES (to be deleted)
-
-Use this space to provide attribution links to any images, videos, or audio files borrowed from online.
-A few examples have been provided below to give you some ideas.
-
-If you're the owner (or a close acquaintance) of all media files, then make sure to specify this.
-Let the assessors know that you have explicit rights to use the media files within your project.
-
-Ideally, you should provide an actual link to every media file used, not just a generic link to the main site!
-The list below is by no means exhaustive. Within the Code Institute Slack community, you can find more "free media" links
-by sending yourself the following command: `!freemedia`.
-
-⚠️⚠️ EXAMPLE LINKS - REPLACE WITH YOUR OWN ⚠️⚠️
-
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-END OF NOTES (to be deleted)
-
-| Source | Location | Type | Notes |
-| --- | --- | --- | --- |
-| [Pexels](https://www.pexels.com) | entire site | image | favicon on all pages |
-| [Lorem Picsum](https://picsum.photos) | home page | image | hero image background |
-| [Unsplash](https://unsplash.com) | product page | image | sample of fake products |
-| [Pixabay](https://pixabay.com) | gallery page | image | group of photos for gallery |
-| [Wallhere](https://wallhere.com) | footer | image | background wallpaper image in the footer |
-| [This Person Does Not Exist](https://thispersondoesnotexist.com) | testimonials | image | headshots of fake testimonial images |
-| [Audio Micro](https://www.audiomicro.com/free-sound-effects) | game page | audio | free audio files to generate the game sounds |
-| [Videvo](https://www.videvo.net/) | home page | video | background video on the hero section |
-| [TinyPNG](https://tinypng.com) | entire site | image | tool for image compression |
 
 ### Acknowledgements
 
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-START OF NOTES (to be deleted)
 
-Use this space to provide attribution to any supports that helped, encouraged, or supported you throughout the development stages of this project.
-A few examples have been provided below to give you some ideas.
-
-⚠️⚠️ EXAMPLES ONLY - REPLACE WITH YOUR OWN ⚠️⚠️
-
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-END OF NOTES (to be deleted)
-
-- I would like to thank my Code Institute mentor, [Tim Nelson](https://github.com/TravelTimN) for his support throughout the development of this project.
+- I would like to thank my Code Institute mentor, [Julia Konn] for her support throughout the development of this project.
 - I would like to thank the [Code Institute](https://codeinstitute.net) tutor team for their assistance with troubleshooting and debugging some project issues.
 - I would like to thank the [Code Institute Slack community](https://code-institute-room.slack.com) for the moral support; it kept me going during periods of self doubt and imposter syndrome.
-- I would like to thank my partner (John/Jane), for believing in me, and allowing me to make this transition into software development.
-- I would like to thank my employer, for supporting me in my career development change towards becoming a software developer.
+- I would like to thank my partner, for supporting me to make this transition into software development.
+
