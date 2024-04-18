@@ -61,3 +61,40 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 | seecrets | views.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/EfthymiaKakoulidou/pp5api/main/seecrets/views.py) | ![screenshot](documentation/validation/seecretsviews.jpg) | |
 
 
+### Manual Testing
+
+| Endpoint | Method | expected outcome | Results | Notes |
+| --- | --- | --- | --- | --- |
+| admin | GET | admin panel | Test passed | |
+| seecrets | GET | A list of all seecrets | Test passed | |
+| seecrets/<int:pk>/ | GET | a seecret with its details | Test passed | |
+| reach_out_comments/ | GET | A list of all reach_out_comments | Test passed  | |
+| reach_out_comments/<int:pk> | GET | a comments with its details | Test passed | |
+| reach_out/ | GET | a list of reach_outs | Test passed  | |
+| reach_out/<int:pk> | GET | a reach_out with its details | Test passed  | |
+| profiles/ | GET | a list of all the profiles | Test passed | |
+| profiles/<int:pk>/ | GET | a profile with its details | Test passed  | |
+| hugs/ | GET | a list of hugs | Test passed | |
+| hugs/<int:pk> | GET | a hug with its details | Test passed  | |
+| diary/ | GET | a list of all diary entries | Test passed  | |
+| diary/<int:pk>/ | GET | a diary entry with its details | Test passed  | |
+| comments/ | GET | a list of comments | Test passed  | |
+| comments/<int:pk> | GET | a comment with its details | Test passed  | |
+| blogposts/ | GET | a list of blogs | Test passed | |
+| blogpost/<int:pk>/ | GET | a blog with its details | Test passed | |
+| seecrets | POST | create a seecret | Test passed | |
+| reach_out_comments/ | POST | create a reach_out comment to a reach_out | Test passed  | |
+| reach_out/ | POST | create a reach_out | Test passed  | |
+| hugs/ | POST | create a hug | Test passed | |
+| diary/ | POST | create a diary | Test passed  | |
+| comments/ | POST | create a comment | Test passed  | |
+| blogposts/ | POST | create a blog (Admin) | Test passed | |
+| seecrets/<int:pk>/ | PUT | update a seecret | Test passed | |
+| profiles/<int:pk>/ | PUT | update a profile | Test passed  | |
+| comments/<int:pk> | PUT | update a comment | Test passed  | |
+| blogpost/<int:pk>/ | PUT | update a blogpost | Test passed | |
+| seecrets/<int:pk>/ | DELETE | delete a seecret | Test passed | |
+| comments/<int:pk> | DELETE | delete a comment | Test passed  | |
+| blogpost/<int:pk>/ | DELETE | delete a blogpost | Test passed | |
+| hugs/<int:pk> | DELETE | delete a hug | Test passed  | |
+
