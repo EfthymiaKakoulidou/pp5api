@@ -19,10 +19,10 @@
 ## Database Diagram
 
 The initial ERD looked like this and it was much more simple than the final one.
-![screenshot](documentation/features/erd.png)
+![screenshot](documentation/erd.jpeg)
 
 Final ERD :
-![screenshot](documentation/features/erd2.png)
+![screenshot](documentation/erd2.jpeg)
 
 I realized I needed to implement separate models for my diary and the message functionality.
 
@@ -96,9 +96,13 @@ Deployment steps are as follows, after account setup:
 
 | Key | Value |
 | --- | --- |
+| `ALLOWED_HOST` | user's own value |
 | `DATABASE_URL` | user's own value |
 | `DISABLE_COLLECTSTATIC` | 1 (*this is temporary, and can be removed for the final deployment*) |
 | `SECRET_KEY` | user's own value |
+| `CLIENT_ORIGIN` | user's own value |
+| `CLIENT_ORIGIN_DEV` | user's own value |
+| `CLOUDINARY_URL` | user's own value |
 
 
 Heroku needs three additional files in order to deploy properly.
