@@ -93,8 +93,12 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 | profiles/<int:pk>/ | PUT | update a profile | Test passed  | |
 | comments/<int:pk> | PUT | update a comment | Test passed  | |
 | blogpost/<int:pk>/ | PUT | update a blogpost | Test passed | |
+| reach_out_comments/ | PUT | update a reach_out comment to a reach_out | Test passed  | |
+| diary/<int:pk>/ | PUT | update diary | Test passed | |
 | seecrets/<int:pk>/ | DELETE | delete a seecret | Test passed | |
 | comments/<int:pk> | DELETE | delete a comment | Test passed  | |
 | blogpost/<int:pk>/ | DELETE | delete a blogpost | Test passed | |
 | hugs/<int:pk> | DELETE | delete a hug | Test passed  | |
+| diary/<int:pk> | DELETE | delete diary | Test passed  | |
+| reach_out_comments/<int:pk> | DELETE | delete a reach_out comment to a reach_out | Test passed  | |
 
