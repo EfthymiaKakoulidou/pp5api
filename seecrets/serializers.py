@@ -45,6 +45,6 @@ class SeecretSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_image', 'created_at', 'updated_at',
-            'title', 'content', 'image', 'image_filter', 'category', 'hug_id',
+            'title', 'content', 'image', 'image_filter', 'hug_id',
             'hugs_count', 'comments_count',
         ]
