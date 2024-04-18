@@ -11,7 +11,7 @@ class Reach_out(models.Model):
     reach_out_to = models.ForeignKey(Profile, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    content = models.TextField()
+    content = models.TextField(blank=False)
 
     class Meta:
         ordering = ['-created_at']
