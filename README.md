@@ -30,13 +30,13 @@ I realized I needed to implement separate models for my diary and the message fu
 
 - Languages Used
 
-Python
+	- Python
 
 - Frameworks, Libraries & Programs Used
 
 - Databases Used
 
-ElephantSQL
+	- ElephantSQL
 
 - Frameworks Used
 
@@ -50,8 +50,6 @@ ElephantSQL
 	- Psycopg2 - As an adaptor for Python and PostgreSQL databases.
 	- Allauth - For authentication, registration, account management.
 	- Cloudinary - To host images
-	- Pillow - Image Processing
-	- Whitenoise - To serve staticfiles
 	- django-filter - To create range filters
 	- django-cors-headers - To allow in-browser requests to Django application from other origins.
 	- django-phonenumber-field - To validate and convert phone numbers.
@@ -109,7 +107,6 @@ Heroku needs three additional files in order to deploy properly.
 
 - requirements.txt
 - Procfile
-- runtime.txt
 
 You can install this project's **requirements** (where applicable) using:
 
@@ -216,9 +213,6 @@ You can fork this repository by using the following steps:
 2. At the top of the Repository (not top of page) just above the "Settings" Button on the menu, locate the "Fork" Button.
 3. Once clicked, you should now have a copy of the original repository in your own GitHub account!
 
-### Local VS Deployment
-
-No significant differences between local and deployment
 
 ## Credits
 
@@ -228,6 +222,9 @@ I constructed this api with the guidance of code institute's walkthrough.
 | Source | Location | Notes |
 | --- | --- | --- |
 | [Markdown Builder](https://tim.2bn.dev/markdown-builder) | README and TESTING | tool to help generate the Markdown files |
+| [Django](https://www.djangoproject.com/) | Django | entire project |
+| [ElephantSql](https://www.elephantsql.com/) | ElephantSQL | for the database |
+| [CI Python Linter ](https://pep8ci.herokuapp.com/) | CI Python Linter | for the validation of .py files |
 
 
 ### Acknowledgements
